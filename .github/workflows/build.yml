@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-# ubuntu is required to test with docker services.
 name: Build
 on:
   push:
@@ -8,7 +6,7 @@ on:
   pull_request_target: # use pull_request_target instead of pull_request to let dependabot have permission to access action secrets.
     branches:
       - master
-      
+
 permissions:
   pull-requests: write
   contents: write
@@ -22,10 +20,9 @@ env:
   MYGET_APIKEY: ${{ secrets.MYGET_APIKEY }}
   IS_PUSH_DEFAULT: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
 
-jobs:    
+jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Get PR
         if: ${{ github.event_name == 'pull_request_target' }}
@@ -40,14 +37,13 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        # for pull_request_target the ref needs to specify. see https://github.com/actions/checkout/discussions/404
         with:
           ref: ${{ steps.pr.outputs.merge_commit_sha }}
 
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: | 
+          dotnet-version: |
             6.0.x
             7.0.x
             8.0.x
@@ -61,11 +57,11 @@ jobs:
 
       - name: Test Report
         uses: dorny/test-reporter@main
-        if: (success() || failure()) # run this step even if previous step failed
+        if: (success() || failure())
         with:
-          name: Test Report          # Name of the check run which will be created 
-          path: TestResults/**/*.trx # Path to test results
-          reporter: dotnet-trx       # Format of test results
+          name: Test Report
+          path: TestResults/**/*.trx
+          reporter: dotnet-trx
           list-suites: failed
           list-tests: failed
           use-actions-summary: ${{ github.event_name == 'pull_request' }}
@@ -82,14 +78,14 @@ jobs:
           $ver = Get-Content -Path ./build/pkg.version
           echo "VERSION=$ver" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
           echo $ver
-          
+
       - name: Create Tag
         if: ${{ env.IS_PUSH_DEFAULT == 'true' }}
         uses: richardsimko/update-tag@v1
         with:
           tag_name: ${{ env.VERSION }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
 
       - name: Create Release
         if: ${{ env.IS_PUSH_DEFAULT == 'true' }}
@@ -97,6 +93,7 @@ jobs:
         with:
           name: ${{ env.VERSION }}
           tag: ${{ env.VERSION }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           skipIfReleaseExists: true
           generateReleaseNotes: true
+...
