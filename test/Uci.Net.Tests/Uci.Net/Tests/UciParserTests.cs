@@ -101,6 +101,6 @@ public class UciParserTests
     {
         var (_, input, expected) = testCase;
         var actual = UciParser.Parse(input);
-        AssertExt.EveryMemberEqual(expected, actual);
+        AssertEx.EveryMemberEqual(expected, actual);
     }
 }

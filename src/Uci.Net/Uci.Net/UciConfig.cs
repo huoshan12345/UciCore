@@ -57,7 +57,7 @@ public class UciConfig : IRenderable
             builder.AppendLineFeed();
         }
 
-        foreach (var (_, section, _, isLast) in Sections.IndexExt())
+        foreach (var (_, section, _, isLast) in Sections.IndexEx())
         {
             section.Render(builder);
 
