@@ -8,8 +8,7 @@ public static class UciConfigExtensions
 {
     internal static InvalidCastException CreateCastException<T>(JsonNode? node) where T : JsonNode
     {
-        var actualKind = node?.GetValueKind() ?? JsonValueKind.Null;
-        return new InvalidCastException($"Can not cast {nameof(JsonNode)} of type {actualKind} to {typeof(T).ShortName()}.");
+        return new InvalidCastException($"Can not cast {node?.GetType()} to {typeof(T).Name}.");
     }
 
     internal static T AsNode<T>(this JsonNode? node) where T : JsonNode
@@ -24,20 +23,7 @@ public static class UciConfigExtensions
         {
             var optionsNode = options.ToStructuredJsonObject();
 
-            if (name.IsNotEmpty())
-            {
-                // named section
-                if (jsonObject.TryGetPropertyValue(type, out var node))
-                {
-                    var obj = node.AsNode<JsonObject>();
-                    obj[name] = optionsNode;
-                }
-                else
-                {
-                    jsonObject[type] = new JsonObject { { name, optionsNode } };
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(name))
             {
                 // unnamed section
                 if (jsonObject.TryGetPropertyValue(type, out var node))
@@ -48,6 +34,19 @@ public static class UciConfigExtensions
                 else
                 {
                     jsonObject[type] = new JsonArray(optionsNode);
+                }
+            }
+            else
+            {
+                // named section
+                if (jsonObject.TryGetPropertyValue(type, out var node))
+                {
+                    var obj = node.AsNode<JsonObject>();
+                    obj[name] = optionsNode;
+                }
+                else
+                {
+                    jsonObject[type] = new JsonObject { { name, optionsNode } };
                 }
             }
         }
@@ -85,15 +84,14 @@ public static class UciConfigExtensions
 
         foreach (var (key, node) in jsonObject)
         {
-            switch (node?.GetValueKind())
+            switch (node)
             {
-                case JsonValueKind.Object:
+                case JsonObject:
                 {
                     break;
                 }
-                case JsonValueKind.Array:
+                case JsonArray array:
                 {
-                    var array = node.AsNode<JsonArray>();
                     foreach (var valueNode in array)
                     {
                         var option = new UciOption(key, GetValue(valueNode), true);
@@ -110,7 +108,7 @@ public static class UciConfigExtensions
             }
         }
 
-        return options.AsSpan().ToArray();
+        return options.ToArray();
     }
 
     public static UciConfig ToUciConfig(this JsonObject jsonObject)
@@ -119,22 +117,22 @@ public static class UciConfigExtensions
 
         foreach (var (type, node) in jsonObject)
         {
-            switch (node?.GetValueKind())
+            switch (node)
             {
-                case JsonValueKind.Object:
+                case JsonObject obj:
                 {
                     // named sections
-                    foreach (var (name, optionsNode) in node.AsNode<JsonObject>())
+                    foreach (var (name, optionsNode) in obj)
                     {
                         var section = CreateSection(type, name, optionsNode);
                         config.Sections.Add(section);
                     }
                     break;
                 }
-                case JsonValueKind.Array:
+                case JsonArray array:
                 {
                     // unnamed section
-                    foreach (var optionsNode in node.AsNode<JsonArray>())
+                    foreach (var optionsNode in array)
                     {
                         var section = CreateSection(type, "", optionsNode);
                         config.Sections.Add(section);
@@ -155,15 +153,11 @@ public static class UciConfigExtensions
 
     private static string GetValue(JsonNode? token)
     {
-        if (token is null)
-            return "";
-
-        var kind = token.GetValueKind();
-        return kind switch
+        return token switch
         {
-            JsonValueKind.Null => "",
-            JsonValueKind.String => token.GetValue<string>() ?? "",
-            _ => token.ToJsonString(),
+            null => "",
+            JsonValue value when value.TryGetValue<string>(out var str) => str,
+            _ => token.ToJsonString()
         };
     }
 }

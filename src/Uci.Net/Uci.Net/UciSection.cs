@@ -4,7 +4,7 @@
 /// Represents a section in a UCI (Unified Configuration Interface) configuration file.
 /// Each section contains a type, a name, a collection of options, and associated comments.
 /// </summary>
-public class UciSection : IRenderable
+public class UciSection
 {
     /// <summary>
     /// Gets or sets the type of the UCI section.
@@ -79,7 +79,7 @@ public class UciSection : IRenderable
         builder.Append("config");
         builder.Append(' ');
         builder.Append(Type);
-        if (Name.IsNotEmpty())
+        if (Name is { Length: > 0 })
         {
             builder.Append(' ');
             builder.AppendSingleQuoted(Name);

@@ -7,7 +7,7 @@
 /// string representation suitable for inclusion in UCI configuration files.
 /// </summary>
 [DebuggerDisplay("{Key}, {Value}")]
-public class UciOption : IRenderable
+public class UciOption
 {
     /// <summary>
     /// Gets or sets the key for this UCI option.

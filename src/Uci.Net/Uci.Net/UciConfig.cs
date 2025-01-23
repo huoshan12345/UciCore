@@ -7,7 +7,7 @@
 /// formatted string representation suitable for inclusion in UCI 
 /// configuration files.
 /// </summary>
-public class UciConfig : IRenderable
+public class UciConfig
 {
     /// <summary>
     /// Gets or sets the name of the package associated with this UCI configuration.
@@ -50,7 +50,7 @@ public class UciConfig : IRenderable
     /// rendered output will be appended.</param>
     public void Render(StringBuilder builder)
     {
-        if (PackageName.IsNotEmpty())
+        if (PackageName is { Length: > 0 })
         {
             builder.Append("package ");
             builder.AppendSingleQuoted(PackageName);

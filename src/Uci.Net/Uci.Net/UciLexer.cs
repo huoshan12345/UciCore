@@ -20,7 +20,7 @@ public class UciLexer
     {
         while (true)
         {
-            if (_tokens.IsNotEmpty())
+            if (_tokens.Count > 0)
             {
                 var item = _tokens.Dequeue();
                 if (item.Type == UciTokenType.Eof)
@@ -180,7 +180,10 @@ public class UciLexer
         if (AdvanceIfStartsWith("list"))
             return LexList();
 
-        var unexpected = Rest().ToString().Truncate(50);
+        var rest = Rest();
+        var unexpected = rest.Length > 50
+            ? rest[..50].ToString() + "..."
+            : rest.ToString();
         Error("expected keyword (package, config, option, list) or eof but got: {0}", unexpected);
 
         return null;
@@ -232,7 +235,8 @@ public class UciLexer
         var hasLineFeed = false;
         var inQuotes = false;
         var quotes = new Stack<char>();
-        using var builder = new ValueStringBuilder();
+        using var disposable = StringBuilderHelper.GetCached();
+        var builder = disposable.Value;
         while (true)
         {
             // TODO: add support for escape. The quote ' or " can be escaped by \
@@ -240,7 +244,7 @@ public class UciLexer
 
             if (ch.IsQuote())
             {
-                if (quotes.IsNotEmpty() && ch == quotes.Peek())
+                if (quotes.Count > 0 && ch == quotes.Peek())
                 {
                     quotes.Pop();
                     inQuotes = false;

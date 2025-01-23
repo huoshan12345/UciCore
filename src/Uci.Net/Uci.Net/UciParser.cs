@@ -79,7 +79,7 @@ public static class UciParser
                 }
                 case UciTokenType.SectionName:
                 {
-                    if (section is null || section.Type.IsNullOrEmpty())
+                    if (section is null || string.IsNullOrEmpty(section.Type))
                         throw it.ToException($"Encountered a section name '{it.Value}' without a preceding section type.");
 
                     section.Name = it.Value;
