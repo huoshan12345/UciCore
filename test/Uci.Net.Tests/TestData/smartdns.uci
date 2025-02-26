@@ -1,0 +1,140 @@
+config smartdns
+	option seconddns_port '5335'
+	option seconddns_enabled '1'
+	option seconddns_no_dualstack_selection '1'
+	option seconddns_no_cache '1'
+	option force_https_soa '0'
+	option seconddns_tcp_server '0'
+	option tcp_server '0'
+	option resolve_local_hostnames '0'
+	option rr_ttl_reply_max '10'
+	option server_name 'smartdns'
+	option tls_server '0'
+	option doh_server '0'
+	option seconddns_force_https_soa '0'
+	option log_output_mode 'file'
+	option auto_update_week_time '*'
+	option auto_update_day_time '5'
+	option enabled '1'
+	option ipv6_server '1'
+	option seconddns_server_group 'FallBack'
+	option auto_set_dnsmasq '0'
+	option bind_device '0'
+	option prefetch_domain '1'
+	option serve_expired '0'
+	option seconddns_no_rule_addr '1'
+	option seconddns_no_rule_nameserver '1'
+	option seconddns_no_rule_ipset '1'
+	option seconddns_no_rule_soa '1'
+	option rr_ttl_min '10'
+	option rr_ttl_max '10'
+	option port '6053'
+	option response_mode 'fastest-response'
+	option dualstack_ip_selection '1'
+	option cache_persist '1'
+	option rr_ttl '10'
+	option cache_size '32767'
+	option speed_check_mode 'ping'
+	option old_port '6053'
+	option old_enabled '1'
+	option old_auto_set_dnsmasq '0'
+
+config client-rule
+	option enabled '0'
+	option dualstack_ip_selection '1'
+	option force_https_soa '1'
+
+config domain-rule
+
+config ip-rule
+	option enabled '1'
+
+config server
+	option enabled '1'
+	option name '114'
+	option type 'udp'
+	option ip '114.114.114.114'
+
+config server
+	option enabled '1'
+	option name '阿里'
+	option type 'udp'
+	option ip '223.5.5.5'
+
+config server
+	option enabled '1'
+	option name '百度'
+	option type 'udp'
+	option ip '180.76.76.76'
+
+config server
+	option enabled '1'
+	option name '电信'
+	option type 'udp'
+	option ip '180.168.255.118'
+
+config server
+	option enabled '1'
+	option name '电信-北京'
+	option type 'udp'
+	option ip '219.141.136.10'
+
+config server
+	option name '电信-北京-ipv6'
+	option type 'udp'
+	option ip '240e:40:8000::10'
+	option enabled '1'
+
+config server
+	option name '阿里-ipv6'
+	option type 'udp'
+	option ip '2400:3200::1'
+	option enabled '1'
+
+config server
+	option name 'IBM'
+	option type 'udp'
+	option ip '9.9.9.9'
+	option server_group 'FallBack'
+	option exclude_default_group '1'
+	option enabled '1'
+
+config server
+	option name '微软'
+	option type 'udp'
+	option ip '4.2.2.1'
+	option server_group 'FallBack'
+	option exclude_default_group '1'
+	option enabled '1'
+
+config server
+	option enabled '1'
+	option name '谷歌'
+	option type 'udp'
+	option ip '8.8.8.8'
+	option server_group 'FallBack'
+	option exclude_default_group '1'
+
+config server
+	option enabled '1'
+	option name 'CloudFlare'
+	option type 'udp'
+	option ip '1.1.1.1'
+	option server_group 'FallBack'
+	option exclude_default_group '1'
+
+config server
+	option name '谷歌-ipv6'
+	option type 'udp'
+	option ip '2001:4860:4860::8888'
+	option server_group 'FallBack'
+	option exclude_default_group '1'
+	option enabled '1'
+
+config server
+	option name 'CloudFlare-ipv6'
+	option type 'udp'
+	option ip '2606:4700:4700::1111'
+	option server_group 'FallBack'
+	option exclude_default_group '1'
+	option enabled '1'

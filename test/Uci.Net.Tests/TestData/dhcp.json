@@ -1,0 +1,82 @@
+{
+  "dnsmasq": [
+    {
+      "localise_queries": "1",
+      "local": "/lan/",
+      "domain": "lan",
+      "expandhosts": "1",
+      "authoritative": "1",
+      "readethers": "1",
+      "leasefile": "/tmp/dhcp.leases",
+      "ednspacket_max": "1232",
+      "domainneeded": "1",
+      "localuse": "1",
+      "localservice": "0",
+      "nonwildcard": "0",
+      "port": "5353",
+      "resolvfile": "/tmp/resolv.conf.d/resolv.conf.auto",
+      "cachesize": "8192",
+      "rebind_protection": "0"
+    }
+  ],
+  "dhcp": {
+    "lan": {
+      "interface": "lan",
+      "dhcpv4": "server",
+      "ra_slaac": "1",
+      "ra_flags": [
+        "managed-config",
+        "other-config"
+      ],
+      "start": "100",
+      "limit": "150",
+      "leasetime": "12h",
+      "ra": "server",
+      "dhcpv6": "server",
+      "ra_management": "2",
+      "ra_default": "1",
+      "dhcp_option": [
+        "6,192.168.2.1",
+        "3,192.168.2.1"
+      ],
+      "preferred_lifetime": "5m",
+      "ra_lifetime": "3000"
+    },
+    "wan": {
+      "interface": "wan",
+      "ignore": "1"
+    }
+  },
+  "odhcpd": {
+    "odhcpd": {
+      "maindhcp": "0",
+      "leasefile": "/tmp/hosts/odhcpd",
+      "leasetrigger": "/usr/sbin/odhcpd-update",
+      "loglevel": "4"
+    }
+  },
+  "host": [
+    {
+      "name": "PC",
+      "dns": "1",
+      "mac": "00:15:5d:38:01:ad",
+      "ip": "192.168.2.100"
+    },
+    {
+      "name": "lijing-lenovo",
+      "dns": "1",
+      "mac": "18:cf:5e:b7:63:96",
+      "ip": "192.168.2.101",
+      "tag": "router2"
+    }
+  ],
+  "tag": {
+    "router2": {
+      "dhcp_option": [
+        "3,192.168.2.3",
+        "6,192.168.2.3"
+      ],
+      "force": "1"
+    }
+  }
+}
