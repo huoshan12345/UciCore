@@ -19,41 +19,40 @@
       "rebind_protection": "0"
     }
   ],
-  "dhcp": {
-    "lan": {
-      "interface": "lan",
-      "dhcpv4": "server",
-      "ra_slaac": "1",
-      "ra_flags": [
-        "managed-config",
-        "other-config"
-      ],
-      "start": "100",
-      "limit": "150",
-      "leasetime": "12h",
-      "ra": "server",
-      "dhcpv6": "server",
-      "ra_management": "2",
-      "ra_default": "1",
-      "dhcp_option": [
-        "6,192.168.2.1",
-        "3,192.168.2.1"
-      ],
-      "preferred_lifetime": "5m",
-      "ra_lifetime": "3000"
-    },
-    "wan": {
-      "interface": "wan",
-      "ignore": "1"
-    }
+  "lan": {
+    "interface": "lan",
+    "dhcpv4": "server",
+    "ra_slaac": "1",
+    "ra_flags": [
+      "managed-config",
+      "other-config"
+    ],
+    "start": "100",
+    "limit": "150",
+    "leasetime": "12h",
+    "ra": "server",
+    "dhcpv6": "server",
+    "ra_management": "2",
+    "ra_default": "1",
+    "dhcp_option": [
+      "6,192.168.2.1",
+      "3,192.168.2.1"
+    ],
+    "preferred_lifetime": "5m",
+    "ra_lifetime": "3000",
+    "__uci_section_type": "dhcp"
+  },
+  "wan": {
+    "interface": "wan",
+    "ignore": "1",
+    "__uci_section_type": "dhcp"
   },
   "odhcpd": {
-    "odhcpd": {
-      "maindhcp": "0",
-      "leasefile": "/tmp/hosts/odhcpd",
-      "leasetrigger": "/usr/sbin/odhcpd-update",
-      "loglevel": "4"
-    }
+    "maindhcp": "0",
+    "leasefile": "/tmp/hosts/odhcpd",
+    "leasetrigger": "/usr/sbin/odhcpd-update",
+    "loglevel": "4",
+    "__uci_section_type": "odhcpd"
   },
   "host": [
     {
@@ -70,13 +69,12 @@
       "tag": "router2"
     }
   ],
-  "tag": {
-    "router2": {
-      "dhcp_option": [
-        "3,192.168.2.3",
-        "6,192.168.2.3"
-      ],
-      "force": "1"
-    }
+  "router2": {
+    "dhcp_option": [
+      "3,192.168.2.3",
+      "6,192.168.2.3"
+    ],
+    "force": "1",
+    "__uci_section_type": "tag"
   }
 }

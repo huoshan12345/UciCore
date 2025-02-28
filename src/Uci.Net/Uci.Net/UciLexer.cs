@@ -1,5 +1,11 @@
 ﻿namespace Uci.Net;
 
+/// <summary>
+/// Lexical analyzer for UCI (Unified Configuration Interface) configuration files.
+/// Converts input text into a stream of tokens that can be consumed by the parser.
+/// The lexer handles tokenization of UCI syntax elements including keywords, 
+/// identifiers, strings, and comments.
+/// </summary>
 public class UciLexer
 {
     private readonly string _input; // the string being scanned
@@ -10,12 +16,25 @@ public class UciLexer
     private NextState? _state; // current state
     private readonly Queue<UciToken> _tokens = []; // channel of scanned items
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UciLexer"/> class with the specified input text.
+    /// </summary>
+    /// <param name="input">The UCI configuration text to tokenize.</param>
     public UciLexer(string input)
     {
         _input = input;
         _state = LexStart;
     }
 
+    /// <summary>
+    /// Processes the input text and yields a sequence of UCI tokens.
+    /// Tokens represent the lexical elements of the UCI configuration syntax, such as
+    /// keywords (package, config, option, list), identifiers, values, and comments.
+    /// </summary>
+    /// <returns>
+    /// An enumerable sequence of <see cref="UciToken"/> objects representing
+    /// the lexical elements found in the input text. The sequence ends with an EOF token.
+    /// </returns>
     public IEnumerable<UciToken> LexTokens()
     {
         while (true)

@@ -4,6 +4,7 @@
 /// Represents a section in a UCI (Unified Configuration Interface) configuration file.
 /// Each section contains a type, a name, a collection of options, and associated comments.
 /// </summary>
+[DebuggerDisplay("config {Type} {Name}")]
 public class UciSection
 {
     /// <summary>
@@ -23,7 +24,7 @@ public class UciSection
     /// This is a collection of <see cref="UciOption"/> objects that represent key-value pairs 
     /// within the section.
     /// </summary>
-    public List<UciOption> Options { get; set; } = [];
+    public List<UciOption> Options { get; } = [];
 
     /// <summary>
     /// Gets the full line comments associated with this section.

@@ -8,13 +8,14 @@ public class UciConfigExtensionsTests(ITestOutputHelper output)
 {
     public record TestCase(string Name, string Input, string ExpectedJson, string ExpectedUci)
     {
-        public override string? ToString() => Name;
+        public override string ToString() => Name;
     }
 
     public static readonly IEnumerable<object[]> TestCases = new TestCase[]
     {
         new(nameof(Dhcp), Dhcp, DhcpJson, DhcpUci),
         new(nameof(SmartDns), SmartDns, SmartDnsJson, SmartDnsUci),
+        new(nameof(SectionOverride), SectionOverride, SectionOverrideJson, SectionOverrideUciFromJson),
     }.SelectMany(m => new[]
     {
         m,
@@ -24,22 +25,22 @@ public class UciConfigExtensionsTests(ITestOutputHelper output)
 
     [Theory]
     [MemberData(nameof(TestCases))]
-    public void ToStructuredJObject_Test(TestCase testCase)
+    public void ToSerializableJsonObject_Test(TestCase testCase)
     {
         var (_, input, expected, _) = testCase;
         var config = UciParser.Parse(input);
-        var actual = config.ToStructuredJsonObject().ToJsonString(new() { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
+        var actual = config.ToSerializableJsonObject().ToJsonString(new() { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
         output.WriteLine(actual);
         Assert.Equal(expected, actual);
     }
 
     [Theory]
     [MemberData(nameof(TestCases))]
-    public void ToIniConfig_Test(TestCase testCase)
+    public void ToUciConfig_Test(TestCase testCase)
     {
         var (_, input, _, expected) = testCase;
         var config = UciParser.Parse(input);
-        var actual = config.ToStructuredJsonObject().ToUciConfig().ToString();
+        var actual = config.ToSerializableJsonObject().ToUciConfig().ToString();
         output.WriteLine(actual);
         Assert.Equal(expected, actual);
     }

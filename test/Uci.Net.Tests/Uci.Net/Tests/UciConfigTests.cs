@@ -14,6 +14,7 @@ public class UciConfigTests
     {
         new(nameof(Dhcp), Dhcp, Dhcp),
         new(nameof(SmartDns), SmartDns, SmartDns),
+        new(nameof(SectionOverride), SectionOverride, SectionOverrideUci),
     }.SelectMany(m => new[]
     {
         m,
@@ -28,5 +29,19 @@ public class UciConfigTests
         var (_, input, expected) = testCase;
         var config = UciParser.Parse(input);
         Assert.Equal(expected.Trim(), config.ToString().Trim());
+    }
+
+    [Fact]
+    public void Sections_SameName_DifferentTypes_Throw()
+    {
+        const string text = """
+                            config interface 'lan'
+                               option type 'bridge'
+                               
+                            config dhcp 'lan'
+                               option ifname 'eth1'
+                            """;
+        var ex = Assert.Throws<UciException>(() => UciParser.Parse(text));
+        Assert.Contains("Parse error (section of different type 'dhcp' overwrites prior section 'interface' with same name 'lan')", ex.Message);
     }
 }

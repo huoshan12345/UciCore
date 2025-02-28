@@ -1,0 +1,18 @@
+﻿{
+  "lan": {
+    "tag": [
+      "1",
+      "2"
+    ],
+    "ifname": "eth1",
+    "__uci_section_type": "interface"
+  },
+  "interface": [
+    {
+      "ifname": "eth1"
+    },
+    {
+      "ifname": "eth2"
+    }
+  ]
+}

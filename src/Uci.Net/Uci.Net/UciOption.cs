@@ -6,7 +6,7 @@
 /// or a list of values. The class supports rendering the option to a formatted 
 /// string representation suitable for inclusion in UCI configuration files.
 /// </summary>
-[DebuggerDisplay("{Key}, {Value}")]
+[DebuggerDisplay("{IsList ? \"list\" : \"option\"} {Key} {Value}")]
 public class UciOption
 {
     /// <summary>

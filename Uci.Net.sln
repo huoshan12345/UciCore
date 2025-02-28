@@ -34,6 +34,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3F63
 		.github\workflows\send-event.yml = .github\workflows\send-event.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.TXT = LICENSE.TXT
+		NuGet.Config = NuGet.Config
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,5 +62,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E6FB1B96-2802-40F7-A0CE-66FEA2E3493E} = {240580AB-BED0-4A99-9D21-7B25992AA4B4}
 		{BD074E7A-8090-41DF-ACE1-AFC79FFDE3FD} = {18C86622-AB6C-4251-9251-BF9E2A01B8E1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC0E136D-8454-4853-91B0-043B99ECECF1}
 	EndGlobalSection
 EndGlobal

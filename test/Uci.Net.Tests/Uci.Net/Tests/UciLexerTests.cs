@@ -22,11 +22,11 @@ public class UciLexerTests
         new(nameof(Quoted), Quoted,
         [
             ..UciTokens.Section("example", "test"),
-            ..UciTokens.Option("example", "value1"),
-            ..UciTokens.Option("example", "value2"),
-            ..UciTokens.Option("example", "value3"),
-            ..UciTokens.Option("example", "value4"),
-            ..UciTokens.Option("example", "value5"),
+            ..UciTokens.List("example", "value1"),
+            ..UciTokens.List("example", "value2"),
+            ..UciTokens.List("example", "value3"),
+            ..UciTokens.List("example", "value4"),
+            ..UciTokens.List("example", "value5"),
         ]),
         new(nameof(Simple), Simple,
         [
@@ -51,22 +51,22 @@ public class UciLexerTests
             ..UciTokens.Section("foo", "named"),
             ..UciTokens.Option("pos", "0"),
             ..UciTokens.Option("unnamed", "0"),
-            ..UciTokens.ListEntry("list", "0"),
+            ..UciTokens.List("list", "0"),
 
             ..UciTokens.Section("foo"),
             ..UciTokens.Option("pos", "1"),
             ..UciTokens.Option("unnamed", "1"),
-            ..UciTokens.ListEntry("list", "10"),
+            ..UciTokens.List("list", "10"),
 
             ..UciTokens.Section("foo"),
             ..UciTokens.Option("pos", "2"),
             ..UciTokens.Option("unnamed", "1"),
-            ..UciTokens.ListEntry("list", "20"),
+            ..UciTokens.List("list", "20"),
 
-            ..UciTokens.Section("foo", "named"),
+            ..UciTokens.Section("foo", "named2"),
             ..UciTokens.Option("pos", "3"),
             ..UciTokens.Option("unnamed", "0"),
-            ..UciTokens.ListEntry("list", "30"),
+            ..UciTokens.List("list", "30"),
         ]),
         new(nameof(Hyphenated), Hyphenated,
         [
@@ -104,6 +104,19 @@ public class UciLexerTests
         [
             UciTokenType.SectionType.Make("foo"),
             UciTokenType.Error.Make("unterminated quoted string"),
+        ]),
+        new(nameof(SectionOverride), SectionOverride,
+        [
+            ..UciTokens.Section("interface", "lan"),
+            ..UciTokens.Option("ifname", "eth0"),
+            ..UciTokens.List("tag", "1"),
+            ..UciTokens.Section("interface"),
+            ..UciTokens.Option("ifname", "eth1"),
+            ..UciTokens.Section("interface"),
+            ..UciTokens.Option("ifname", "eth2"),
+            ..UciTokens.Section("interface", "lan"),
+            ..UciTokens.Option("ifname", "eth1"),
+            ..UciTokens.List("tag", "2"),
         ]),
     }.Select(m => new object[] { m });
 

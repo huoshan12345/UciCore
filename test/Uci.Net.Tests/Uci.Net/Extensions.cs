@@ -22,7 +22,7 @@ public static class UciTokens
         return [UciTokenType.OptionName.Make(key), UciTokenType.OptionValue.Make(value)];
     }
 
-    public static UciToken[] ListEntry(string key, string value)
+    public static UciToken[] List(string key, string value)
     {
         return [UciTokenType.ListName.Make(key), UciTokenType.OptionValue.Make(value)];
     }

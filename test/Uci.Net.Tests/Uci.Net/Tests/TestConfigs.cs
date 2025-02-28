@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Text.Encodings.Web;
-
-namespace Uci.Net.Tests;
+﻿namespace Uci.Net.Tests;
 
 public static class TestConfigs
 {
@@ -25,28 +22,28 @@ public static class TestConfigs
                                        """;
 
     public const string Unquoted = "config foo bar\noption answer 42\n";
-
+    
     public const string Unnamed = """
-                                        config foo named
-                                            option pos '0'
-                                        	option unnamed '0'
-                                        	list list 0
+                                    config foo named
+                                        option pos '0'
+                                        option unnamed '0'
+                                        list list 0
 
-                                        config foo
-                                        	option pos '1'
-                                        	option unnamed '1'
-                                        	list list 10
+                                    config foo
+                                        option pos '1'
+                                        option unnamed '1'
+                                        list list 10
 
-                                        config foo
-                                        	option pos '2'
-                                        	option unnamed '1'
-                                        	list list 20
+                                    config foo
+                                        option pos '2'
+                                        option unnamed '1'
+                                        list list 20
 
-                                        config foo named
-                                        	option pos '3'
-                                        	option unnamed '0'
-                                        	list list 30
-                                        """;
+                                    config foo named2
+                                        option pos '3'
+                                        option unnamed '0'
+                                        list list 30
+                                    """;
 
 
     public const string Hyphenated = """
@@ -93,11 +90,11 @@ public static class TestConfigs
 
     public const string Quoted = """
                                   config 'example' 'test'
-                                      option example   value1
-                                      option  example  "value2"
-                                      option 'example'  value3
-                                      option 'example' "value4"
-                                      option "example" 'value5'
+                                      list example   value1
+                                      list  example  "value2"
+                                      list 'example'  value3
+                                      list 'example' "value4"
+                                      list "example" 'value5'
                                   """;
 
     private static string ReadTestFile(string fileName)
@@ -110,7 +107,13 @@ public static class TestConfigs
     public static readonly string Dhcp = ReadTestFile("dhcp");
     public static readonly string DhcpUci = ReadTestFile("dhcp.uci");
     public static readonly string DhcpJson = ReadTestFile("dhcp.json");
+
     public static readonly string SmartDns = ReadTestFile("smartdns");
     public static readonly string SmartDnsUci = ReadTestFile("smartdns.uci");
     public static readonly string SmartDnsJson = ReadTestFile("smartdns.json");
+
+    public static readonly string SectionOverride = ReadTestFile("section_override");
+    public static readonly string SectionOverrideUci = ReadTestFile("section_override.uci");
+    public static readonly string SectionOverrideJson = ReadTestFile("section_override.json");
+    public static readonly string SectionOverrideUciFromJson = ReadTestFile("section_override.json.uci");
 }

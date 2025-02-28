@@ -7,6 +7,7 @@
 /// formatted string representation suitable for inclusion in UCI 
 /// configuration files.
 /// </summary>
+[DebuggerDisplay("package {PackageName}")]
 public class UciConfig
 {
     /// <summary>

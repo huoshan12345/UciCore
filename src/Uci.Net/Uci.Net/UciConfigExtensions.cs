@@ -4,8 +4,13 @@
 
 namespace Uci.Net;
 
+/// <summary>
+/// Extension methods for converting between UCI configuration objects and JSON representations.
+/// </summary>
 public static class UciConfigExtensions
 {
+    public const string SectionTypeKey = "__uci_section_type";
+
     internal static InvalidCastException CreateCastException<T>(JsonNode? node) where T : JsonNode
     {
         return new InvalidCastException($"Can not cast {node?.GetType()} to {typeof(T).Name}.");
@@ -16,7 +21,18 @@ public static class UciConfigExtensions
         return node as T ?? throw CreateCastException<T>(node);
     }
 
-    public static JsonObject ToStructuredJsonObject(this UciConfig config)
+    /// <summary>
+    /// Converts a UCI configuration to a serializable JSON object.
+    /// The resulting JSON structure organizes sections by their types and names,
+    /// allowing for easier access to configuration data in a hierarchical format.
+    /// </summary>
+    /// <param name="config">The UCI configuration to convert.</param>
+    /// <returns>
+    /// A JsonObject where:
+    /// - Named sections are organized as {sectionType: {sectionName: {options}}}
+    /// - Unnamed sections are organized as {sectionType: [{options}, {options}, ...]}
+    /// </returns>
+    public static JsonObject ToSerializableJsonObject(this UciConfig config)
     {
         var jsonObject = new JsonObject();
         foreach (var (type, name, options) in config.Sections)
@@ -39,14 +55,18 @@ public static class UciConfigExtensions
             else
             {
                 // named section
-                if (jsonObject.TryGetPropertyValue(type, out var node))
+                optionsNode[SectionTypeKey] = type;
+
+                if (jsonObject.TryGetPropertyValue(name, out var node) && node is not null)
                 {
-                    var obj = node.AsNode<JsonObject>();
-                    obj[name] = optionsNode;
+                    foreach (var (key, value) in optionsNode)
+                    {
+                        node[key] = value;
+                    }
                 }
                 else
                 {
-                    jsonObject[type] = new JsonObject { { name, optionsNode } };
+                    jsonObject[name] = optionsNode;
                 }
             }
         }
@@ -78,12 +98,15 @@ public static class UciConfigExtensions
         return jsonObject;
     }
 
-    public static UciOption[] ToUciOptions(this JsonObject jsonObject)
+    private static UciOption[] ToUciOptions(this JsonObject jsonObject)
     {
         var options = new List<UciOption>();
 
         foreach (var (key, node) in jsonObject)
         {
+            if (key == SectionTypeKey)
+                continue;
+
             switch (node)
             {
                 case JsonObject:
@@ -111,22 +134,33 @@ public static class UciConfigExtensions
         return options.ToArray();
     }
 
+    /// <summary>
+    /// Converts a JSON object (serialized from a custom config type) to a UCI configuration.
+    /// This method processes the hierarchical JSON structure and creates
+    /// corresponding UCI sections and options.
+    /// </summary>
+    /// <param name="jsonObject">The structured JSON object to convert.</param>
+    /// <returns>
+    /// A UciConfig object containing sections and options derived from the JSON structure.
+    /// The method handles both named sections (represented as nested objects)
+    /// and unnamed sections (represented as arrays).
+    /// </returns>
     public static UciConfig ToUciConfig(this JsonObject jsonObject)
     {
         var config = new UciConfig();
 
-        foreach (var (type, node) in jsonObject)
+        foreach (var (key, node) in jsonObject)
         {
             switch (node)
             {
                 case JsonObject obj:
                 {
-                    // named sections
-                    foreach (var (name, optionsNode) in obj)
-                    {
-                        var section = CreateSection(type, name, optionsNode);
-                        config.Sections.Add(section);
-                    }
+                    var type = obj[SectionTypeKey]?.ToString();
+                    if (string.IsNullOrEmpty(type))
+                        throw new InvalidOperationException($"Missing uci section type for section '{key}'.");
+
+                    var section = CreateSection(type, key, obj);
+                    config.Sections.Add(section);
                     break;
                 }
                 case JsonArray array:
@@ -134,7 +168,7 @@ public static class UciConfigExtensions
                     // unnamed section
                     foreach (var optionsNode in array)
                     {
-                        var section = CreateSection(type, "", optionsNode);
+                        var section = CreateSection(key, "", optionsNode);
                         config.Sections.Add(section);
                     }
                     break;

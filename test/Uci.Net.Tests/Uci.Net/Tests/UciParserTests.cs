@@ -53,7 +53,7 @@ public class UciParserTests
                     new("pos", "2"),
                     new("unnamed", "1"),
                     new("list", "20", true)),
-                new("foo", "named",
+                new("foo", "named2",
                     new("pos", "3"),
                     new("unnamed", "0"),
                     new("list", "30", true)),
@@ -86,11 +86,25 @@ public class UciParserTests
             Sections =
             [
                 new("example", "test",
-                    new("example", "value1"),
-                    new("example", "value2"),
-                    new("example", "value3"),
-                    new("example", "value4"),
-                    new("example", "value5")),
+                    new("example", "value1", true),
+                    new("example", "value2", true),
+                    new("example", "value3", true),
+                    new("example", "value4", true),
+                    new("example", "value5", true)),
+            ],
+        }),
+        new(nameof(SectionOverride), SectionOverride,new()
+        {
+            Sections =
+            [
+                new("interface", "lan",
+                    new("tag", "1", true),
+                    new("ifname", "eth1"),
+                    new("tag", "2", true)),
+                new("interface", "",
+                    new UciOption("ifname", "eth1")),
+                new("interface", "",
+                    new UciOption("ifname", "eth2")),
             ],
         }),
     }.Select(m => new object[] { m });
