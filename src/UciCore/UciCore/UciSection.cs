@@ -24,13 +24,13 @@ public class UciSection
     /// This is a collection of <see cref="UciOption"/> objects that represent key-value pairs 
     /// within the section.
     /// </summary>
-    public List<UciOption> Options { get; } = [];
+    public List<UciOption> Options { get; set; } = [];
 
     /// <summary>
-    /// Gets the full line comments associated with this section.
+    /// Gets or sets the full line comments associated with this section.
     /// These comments can provide additional context or documentation for the section.
     /// </summary>
-    public List<string> FullLineComments { get; } = [];
+    public List<string> FullLineComments { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the inline comment associated with this section.

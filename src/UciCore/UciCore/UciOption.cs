@@ -29,11 +29,11 @@ public class UciOption
     public bool IsList { get; set; } = false;
 
     /// <summary>
-    /// Gets the full line comments associated with this option.
+    /// Gets or sets the full line comments associated with this option.
     /// These comments provide additional context or documentation for the option
     /// and appear on lines preceding or following the key-value pair.
     /// </summary>
-    public List<string> FullLineComments { get; } = [];
+    public List<string> FullLineComments { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the inline comment associated with this option.
