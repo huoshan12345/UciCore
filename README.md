@@ -139,7 +139,7 @@ NetworkConfig? network = jsonObject.Deserialize<NetworkConfig>();
 
 ## TODO
 
-- Support reading and writing comments (current parser just ignores comments)
+- [ ] Add support for reading and writing comments (current parser just ignores comments)
 
 ## License
 
@@ -147,4 +147,4 @@ MIT License
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
