@@ -1,0 +1,10 @@
+﻿config interface 'lan'
+	list tag '1'
+	list tag '2'
+	option ifname 'eth1'
+
+config interface
+	option ifname 'eth1'
+
+config interface
+	option ifname 'eth2'

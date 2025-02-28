@@ -1,0 +1,69 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{240580AB-BED0-4A99-9D21-7B25992AA4B4}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+		src\Directory.Build.targets = src\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{18C86622-AB6C-4251-9251-BF9E2A01B8E1}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+		test\Directory.Build.targets = test\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{77A1BAE1-63A5-4454-A20F-46E2309CF23C}"
+	ProjectSection(SolutionItems) = preProject
+		build\clean.ps1 = build\clean.ps1
+		build\incre_ver.ps1 = build\incre_ver.ps1
+		build\pack.ps1 = build\pack.ps1
+		build\pkg.version = build\pkg.version
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UciCore", "src\UciCore\UciCore.csproj", "{E6FB1B96-2802-40F7-A0CE-66FEA2E3493E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UciCore.Tests", "test\UciCore.Tests\UciCore.Tests.csproj", "{BD074E7A-8090-41DF-ACE1-AFC79FFDE3FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3F63BAB9-3C8E-4CA2-A824-4F20353D45FE}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\send-event.yml = .github\workflows\send-event.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.TXT = LICENSE.TXT
+		NuGet.Config = NuGet.Config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6FB1B96-2802-40F7-A0CE-66FEA2E3493E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6FB1B96-2802-40F7-A0CE-66FEA2E3493E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6FB1B96-2802-40F7-A0CE-66FEA2E3493E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6FB1B96-2802-40F7-A0CE-66FEA2E3493E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD074E7A-8090-41DF-ACE1-AFC79FFDE3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD074E7A-8090-41DF-ACE1-AFC79FFDE3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD074E7A-8090-41DF-ACE1-AFC79FFDE3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD074E7A-8090-41DF-ACE1-AFC79FFDE3FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6FB1B96-2802-40F7-A0CE-66FEA2E3493E} = {240580AB-BED0-4A99-9D21-7B25992AA4B4}
+		{BD074E7A-8090-41DF-ACE1-AFC79FFDE3FD} = {18C86622-AB6C-4251-9251-BF9E2A01B8E1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC0E136D-8454-4853-91B0-043B99ECECF1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,152 @@
+{
+  "smartdns": [
+    {
+      "seconddns_port": "5335",
+      "seconddns_enabled": "1",
+      "seconddns_no_dualstack_selection": "1",
+      "seconddns_no_cache": "1",
+      "force_https_soa": "0",
+      "seconddns_tcp_server": "0",
+      "tcp_server": "0",
+      "resolve_local_hostnames": "0",
+      "rr_ttl_reply_max": "10",
+      "server_name": "smartdns",
+      "tls_server": "0",
+      "doh_server": "0",
+      "seconddns_force_https_soa": "0",
+      "log_output_mode": "file",
+      "auto_update_week_time": "*",
+      "auto_update_day_time": "5",
+      "enabled": "1",
+      "ipv6_server": "1",
+      "seconddns_server_group": "FallBack",
+      "auto_set_dnsmasq": "0",
+      "bind_device": "0",
+      "prefetch_domain": "1",
+      "serve_expired": "0",
+      "seconddns_no_rule_addr": "1",
+      "seconddns_no_rule_nameserver": "1",
+      "seconddns_no_rule_ipset": "1",
+      "seconddns_no_rule_soa": "1",
+      "rr_ttl_min": "10",
+      "rr_ttl_max": "10",
+      "port": "6053",
+      "response_mode": "fastest-response",
+      "dualstack_ip_selection": "1",
+      "cache_persist": "1",
+      "rr_ttl": "10",
+      "cache_size": "32767",
+      "speed_check_mode": "ping",
+      "old_port": "6053",
+      "old_enabled": "1",
+      "old_auto_set_dnsmasq": "0"
+    }
+  ],
+  "client-rule": [
+    {
+      "enabled": "0",
+      "dualstack_ip_selection": "1",
+      "force_https_soa": "1"
+    }
+  ],
+  "domain-rule": [
+    {}
+  ],
+  "ip-rule": [
+    {
+      "enabled": "1"
+    }
+  ],
+  "server": [
+    {
+      "enabled": "1",
+      "name": "114",
+      "type": "udp",
+      "ip": "114.114.114.114"
+    },
+    {
+      "enabled": "1",
+      "name": "阿里",
+      "type": "udp",
+      "ip": "223.5.5.5"
+    },
+    {
+      "enabled": "1",
+      "name": "百度",
+      "type": "udp",
+      "ip": "180.76.76.76"
+    },
+    {
+      "enabled": "1",
+      "name": "电信",
+      "type": "udp",
+      "ip": "180.168.255.118"
+    },
+    {
+      "enabled": "1",
+      "name": "电信-北京",
+      "type": "udp",
+      "ip": "219.141.136.10"
+    },
+    {
+      "name": "电信-北京-ipv6",
+      "type": "udp",
+      "ip": "240e:40:8000::10",
+      "enabled": "1"
+    },
+    {
+      "name": "阿里-ipv6",
+      "type": "udp",
+      "ip": "2400:3200::1",
+      "enabled": "1"
+    },
+    {
+      "name": "IBM",
+      "type": "udp",
+      "ip": "9.9.9.9",
+      "server_group": "FallBack",
+      "exclude_default_group": "1",
+      "enabled": "1"
+    },
+    {
+      "name": "微软",
+      "type": "udp",
+      "ip": "4.2.2.1",
+      "server_group": "FallBack",
+      "exclude_default_group": "1",
+      "enabled": "1"
+    },
+    {
+      "enabled": "1",
+      "name": "谷歌",
+      "type": "udp",
+      "ip": "8.8.8.8",
+      "server_group": "FallBack",
+      "exclude_default_group": "1"
+    },
+    {
+      "enabled": "1",
+      "name": "CloudFlare",
+      "type": "udp",
+      "ip": "1.1.1.1",
+      "server_group": "FallBack",
+      "exclude_default_group": "1"
+    },
+    {
+      "name": "谷歌-ipv6",
+      "type": "udp",
+      "ip": "2001:4860:4860::8888",
+      "server_group": "FallBack",
+      "exclude_default_group": "1",
+      "enabled": "1"
+    },
+    {
+      "name": "CloudFlare-ipv6",
+      "type": "udp",
+      "ip": "2606:4700:4700::1111",
+      "server_group": "FallBack",
+      "exclude_default_group": "1",
+      "enabled": "1"
+    }
+  ]
+}

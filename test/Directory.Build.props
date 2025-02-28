@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsPackable>false</IsPackable>
+    <NoWarn>$(NoWarn);xUnit2013;NU1901;NU1902;NU1903;NU1904</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFrameworkVersion>$([MSBuild]::GetTargetFrameworkVersion($(TargetFramework), 2))</TargetFrameworkVersion>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <_RootDir>$(MSBuildThisFileDirectory)../</_RootDir>
+    <VSTestLogger>trx%3bLogFileName=$(MSBuildProjectName).trx</VSTestLogger>
+    <VSTestResultsDirectory>$(_RootDir)TestResults/$(Configuration)/$(TargetFramework)</VSTestResultsDirectory>
+    <_SettingFile>appsettings.json</_SettingFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(_SettingFile)" Condition="Exists('$(_SettingFile)')">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
