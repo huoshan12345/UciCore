@@ -37,7 +37,7 @@ public static class UciConfigExtensions
         var jsonObject = new JsonObject();
         foreach (var (type, name, options) in config.Sections)
         {
-            var optionsNode = options.ToStructuredJsonObject();
+            var optionsNode = options.ToSerializableJsonObject();
 
             if (string.IsNullOrEmpty(name))
             {
@@ -73,7 +73,7 @@ public static class UciConfigExtensions
         return jsonObject;
     }
 
-    public static JsonObject ToStructuredJsonObject(this IEnumerable<UciOption> options)
+    public static JsonObject ToSerializableJsonObject(this IEnumerable<UciOption> options)
     {
         var jsonObject = new JsonObject();
         foreach (var (key, value, isList) in options)
