@@ -1,4 +1,4 @@
-﻿config interface 'lan'
+config interface 'lan'
 	list tag '1'
 	list tag '2'
 	option ifname 'eth1'
