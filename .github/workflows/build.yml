@@ -15,7 +15,7 @@ permissions:
   actions: write
 
 env:
-  SOLUTION: UciCore.sln
+  SOLUTION: UciCore.slnx
   DOTNET_NOLOGO: 1
   MYGET_APIKEY: ${{ secrets.MYGET_APIKEY }}
   NUGET_APIKEY: ${{ secrets.NUGET_APIKEY }}

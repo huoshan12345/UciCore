@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/.github/">
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/workflows/build.yml" />
+    <File Path=".github/workflows/send-event.yml" />
+  </Folder>
+  <Folder Name="/build/">
+    <File Path="build/clean.ps1" />
+    <File Path="build/incre_ver.ps1" />
+    <File Path="build/pack.ps1" />
+    <File Path="build/pkg.version" />
+  </Folder>
+  <Folder Name="/config/">
+    <File Path="LICENSE.TXT" />
+    <File Path="NuGet.Config" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Directory.Build.targets" />
+    <Project Path="src/UciCore/UciCore.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <File Path="test/Directory.Build.props" />
+    <File Path="test/Directory.Build.targets" />
+    <Project Path="test/UciCore.Tests/UciCore.Tests.csproj" />
+  </Folder>
+</Solution>
